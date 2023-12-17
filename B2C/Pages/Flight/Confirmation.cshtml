@@ -1,0 +1,62 @@
+﻿@page
+@using B2C.ApiHelper.Model;
+@model B2C.Pages.Flight.ConfirmationModel
+@{
+}
+
+<style>
+    #theme_search_form {
+        display: none;
+    }
+</style>
+<!-- Tour Booking Submission Areas -->
+<section id="tour_booking_submission" class="section_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tou_booking_form_Wrapper">
+                    <div class="tour_booking_form_box mb-4">
+                        <div class="booking_success_arae">
+                            <div class="booking_success_img">
+                                <img src="/assets/img/icon/right.png" alt="img">
+                            </div>
+                            <div class="booking_success_text">
+                                <h3>Your booking was submitted successfully!</h3>
+                                <h6>Your online ticket has been sent to:  <h5>@Model.Booked.ContactEmail</h5> </h6>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="tour_details_right_sidebar_wrapper">
+                    <div class="tour_detail_right_sidebar">
+                        <div class="tour_details_right_boxed">
+                            <div class="tour_details_right_box_heading">
+                                <h3>Booking details</h3>
+                            </div>
+                            <div class="tour_booking_amount_area">
+                                <ul>
+                                    <li>Booking Ref : <span>@Model.Booked.ConfirmationNumber</span></li>
+                                </ul>
+                                @{
+                                    foreach(var p in Model.pax)
+                                    {
+                                        <ul>
+                                            <li>Passengers : </li>
+                                            <li><span></span>  <span>@p.Title @p.FirstName @p.LastName</span></li>
+                                        </ul>
+                                    }
+                                }
+                                <div class="total_subtotal_booking">
+                                    <h6 class="remove_coupon_tour">Total Amount <span>@Model.Booked.BalancedDue?.ToString("N0")</span> </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

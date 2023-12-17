@@ -1,0 +1,510 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<!-- Form Area -->
+<section id="theme_search_form" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="theme_search_form_area" style="margin-top: 100px">
+                    <div class="theme_search_form_tabbtn">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="flights-tab" data-bs-toggle="tab" data-bs-target="#flights" type="button" role="tab" aria-controls="flights" aria-selected="true"><i class="fas fa-plane-departure"></i>Flights</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="flights" role="tabpanel" aria-labelledby="flights-tab">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="flight_categories_search">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="oneway-tab active" data-bs-toggle="tab" data-bs-target="#oneway_flight" type="button" role="tab" aria-controls="oneway_flight" aria-selected="false">
+                                                    One Way
+                                                </button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="roundtrip-tab" data-bs-toggle="tab" data-bs-target="#roundtrip" type="button" role="tab" aria-controls="roundtrip" aria-selected="true">Roundtrip</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="mybooking-tab" data-bs-toggle="tab" data-bs-target="#mybooking" type="button" role="tab" aria-controls="booking" aria-selected="true">My Booking</button>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="myTabContent1">
+                                <div class="tab-pane fade show active" id="oneway_flight" role="tabpanel" aria-labelledby="oneway-tab">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="oneway_search_form">
+                                                <form action="#!" id="form-oneway">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                                                            <div class="flight_Search_boxed">
+                                                                <p>From</p>
+                                                                <div class="form-group" style="height:36px">
+
+                                                                    <select id="DepartureCode" style="height:36px; padding: 0 0 0 10px;" class="form-control form-select bg_input">
+                                                                
+                                                                        @{
+                                                                            if (Model.Airports != null)
+                                                                            {
+                                                                                foreach (var item in Model.Airports)
+                                                                                {
+                                                                                    if (item.Status == true)
+                                                                                    {
+                                                                                        if (item.Code == "SGN")
+                                                                                        {
+                                                                                            <option value="@item.Code" data-name="@item.Name" selected> @item.Location</option>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <option value="@item.Code" data-name="@item.Name"> @item.Location</option>
+                                                                                        }
+                                                                                    }
+                                                                                    
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                                <span id="selectedDepartureCode"> </span>
+                                                                <div class="plan_icon_posation">
+                                                                    <i class="fas fa-plane-departure"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                                                            <div class="flight_Search_boxed">
+                                                                <p>To</p>
+                                                                <div class="form-group" style="height:36px">
+
+                                                                    <select id="ArrivalCode" style="height:36px; padding: 0 0 0 10px" class="form-control form-select bg_input">
+
+                                                                        @{
+                                                                            if (Model.Airports != null)
+                                                                            {
+                                                                                foreach (var item in Model.Airports)
+                                                                                {
+                                                                                    if(item.Status == true)
+                                                                                    {
+                                                                                        if (item.Code == "HAN")
+                                                                                        {
+                                                                                            <option value="@item.Code" data-name="@item.Name" selected> @item.Location</option>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <option value="@item.Code" data-name="@item.Name"> @item.Location</option>
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                                <span id="selectedArrivalCode"></span>
+                                                                <div class="plan_icon_posation">
+                                                                    <i class="fas fa-plane-arrival"></i>
+                                                                </div>
+                                                                <div class="range_plan">
+                                                                    <i class="fas fa-exchange-alt"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4  col-md-6 col-sm-12 col-12">
+                                                            <div class="form_search_date">
+                                                                <div class="flight_Search_boxed date_flex_area">
+                                                                    <div class="Journey_date">
+                                                                        <p>Departure date</p>
+                                                                        <input type="date" id="DepartureDate" value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")">
+                                                                        <span id="dayOfWeek"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2  col-md-6 col-sm-12 col-12">
+                                                            <div class="flight_Search_boxed dropdown_passenger_area">
+                                                                <p>Passenger</p>
+                                                                <div class="dropdown">
+                                                                    <input type="text" class="dropdown-toggle final-count" id="Passenger" data-bs-toggle="dropdown" aria-expanded="false" value="1">
+                                                                    <div class="dropdown-menu dropdown_passenger_info" aria-labelledby="Passenger">
+                                                                        <div class="traveller-calulate-persons">
+                                                                            <div class="passengers">
+                                                                                <h6>Passengers</h6>
+                                                                                <div class="passengers-types">
+                                                                                    <div class="passengers-type">
+                                                                                        <div class="text">
+                                                                                            <span class="count pcount">1</span>
+                                                                                            <div class="type-label">
+                                                                                                <p>Adult</p>
+                                                                                                <span>
+                                                                                                    12+
+                                                                                                    yrs
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="button-set">
+                                                                                            <button type="button" class="btn-add">
+                                                                                                <i class="fas fa-plus"></i>
+                                                                                            </button>
+                                                                                            <button type="button" class="btn-subtract">
+                                                                                                <i class="fas fa-minus"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="passengers-type">
+                                                                                        <div class="text">
+                                                                                            <span class="count ccount">0</span>
+                                                                                            <div class="type-label">
+                                                                                                <p class="fz14 mb-xs-0">
+                                                                                                    Children
+                                                                                                </p><span>
+                                                                                                    2
+                                                                                                    - Less than 12
+                                                                                                    yrs
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="button-set">
+                                                                                            <button type="button" class="btn-add-c">
+                                                                                                <i class="fas fa-plus"></i>
+                                                                                            </button>
+                                                                                            <button type="button" class="btn-subtract-c">
+                                                                                                <i class="fas fa-minus"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="passengers-type">
+                                                                                        <div class="text">
+                                                                                            <span class="count incount">0</span>
+                                                                                            <div class="type-label">
+                                                                                                <p class="fz14 mb-xs-0">
+                                                                                                    Infant
+                                                                                                </p><span>
+                                                                                                    Less
+                                                                                                    than 2
+                                                                                                    yrs
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="button-set">
+                                                                                            <button type="button" class="btn-add-in">
+                                                                                                <i class="fas fa-plus"></i>
+                                                                                            </button>
+                                                                                            <button type="button" class="btn-subtract-in">
+                                                                                                <i class="fas fa-minus"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="qstring"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="top_form_search_button">
+                                                        <a href="#" id="search-oneway" class="btn btn_theme btn_md">Search</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="roundtrip" role="tabpanel" aria-labelledby="roundtrip-tab">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="roundtrip_search_form">
+                                                <form action="#!" id="form-roundtrip">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                                                            <div class="flight_Search_boxed">
+                                                                <p>From</p>
+                                                                <div class="form-group" style="height:36px">
+
+                                                                    <select id="DepartureRound" style="height:36px; padding: 0 0 0 10px;" class="form-control form-select bg_input">
+
+                                                                        @{
+                                                                            if (Model.Airports != null)
+                                                                            {
+                                                                                foreach (var item in Model.Airports)
+                                                                                {
+                                                                                    if (item.Status == true)
+                                                                                    {
+                                                                                        if (item.Code == "SGN")
+                                                                                        {
+                                                                                            <option value="@item.Code" data-name="@item.Name" selected> @item.Location</option>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <option value="@item.Code" data-name="@item.Name"> @item.Location</option>
+                                                                                        }
+                                                                                    }
+
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </select>
+                                                                    <span id="selectedDep"> </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                                                            <div class="flight_Search_boxed">
+                                                                <p>To</p>
+                                                                <div class="form-group" style="height:36px">
+                                                                    <select id="ArrivalRound" style="height:36px; padding: 0 0 0 10px" class="form-control form-select bg_input">
+                                                                        @{
+                                                                            if (Model.Airports != null)
+                                                                            {
+                                                                                foreach (var item in Model.Airports)
+                                                                                {
+                                                                                    if (item.Status == true)
+                                                                                    {
+                                                                                        if (item.Code == "HAN")
+                                                                                        {
+                                                                                            <option value="@item.Code" data-name="@item.Name" selected> @item.Location</option>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <option value="@item.Code" data-name="@item.Name"> @item.Location</option>
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                                <span id="selectedArr"></span>
+                                                                <div class="plan_icon_posation">
+                                                                    <i class="fas fa-plane-arrival"></i>
+                                                                </div>
+                                                                <div class="range_plan">
+                                                                    <i class="fas fa-exchange-alt"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4  col-md-6 col-sm-12 col-12">
+                                                            <div class="form_search_date">
+                                                                <div class="flight_Search_boxed date_flex_area">
+                                                                    <div class="Journey_date">
+                                                                        <p>Journey date</p>
+                                                                        <input type="date" id="DepartureDateRou" value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")">
+                                                                        <span id="DepartureDateRoundtrip"></span>
+                                                                    </div>
+                                                                    <div class="Journey_date">
+                                                                        <p>Return date</p>
+                                                                        <input type="date" id="return" value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")">
+                                                                        <span id="returnDate"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2  col-md-6 col-sm-12 col-12">
+                                                            <div class="flight_Search_boxed dropdown_passenger_area">
+                                                                <p>Passenger, Class </p>
+                                                                <div class="dropdown">
+                                                                    <input type="text" class="dropdown-toggle final-count" id="Pax" data-bs-toggle="dropdown" aria-expanded="false" value="1">
+                                                                    <div class="dropdown-menu dropdown_passenger_info" aria-labelledby="Passenger">
+                                                                        <div class="traveller-calulate-persons">
+                                                                            <div class="passengers">
+                                                                                <h6>Passengers</h6>
+                                                                                <div class="passengers-types">
+                                                                                    <div class="passengers-type">
+                                                                                        <div class="text">
+                                                                                            <span class="count pcount">1</span>
+                                                                                            <div class="type-label">
+                                                                                                <p>Adult</p>
+                                                                                                <span>
+                                                                                                    12+
+                                                                                                    yrs
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="button-set">
+                                                                                            <button type="button" class="btn-add">
+                                                                                                <i class="fas fa-plus"></i>
+                                                                                            </button>
+                                                                                            <button type="button" class="btn-subtract">
+                                                                                                <i class="fas fa-minus"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="passengers-type">
+                                                                                        <div class="text">
+                                                                                            <span class="count ccount">0</span>
+                                                                                            <div class="type-label">
+                                                                                                <p class="fz14 mb-xs-0">
+                                                                                                    Children
+                                                                                                </p><span>
+                                                                                                    2
+                                                                                                    - Less than 12
+                                                                                                    yrs
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="button-set">
+                                                                                            <button type="button" class="btn-add-c">
+                                                                                                <i class="fas fa-plus"></i>
+                                                                                            </button>
+                                                                                            <button type="button" class="btn-subtract-c">
+                                                                                                <i class="fas fa-minus"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="passengers-type">
+                                                                                        <div class="text">
+                                                                                            <span class="count incount">0</span>
+                                                                                            <div class="type-label">
+                                                                                                <p class="fz14 mb-xs-0">
+                                                                                                    Infant
+                                                                                                </p><span>
+                                                                                                    Less
+                                                                                                    than 2
+                                                                                                    yrs
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="button-set">
+                                                                                            <button type="button" class="btn-add-in">
+                                                                                                <i class="fas fa-plus"></i>
+                                                                                            </button>
+                                                                                            <button type="button" class="btn-subtract-in">
+                                                                                                <i class="fas fa-minus"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="qstring"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="top_form_search_button">
+                                                        <a href="#" id="search-roundtrip" class="btn btn_theme btn_md">Search</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="mybooking" role="tabpanel" aria-labelledby="mybooking-tab">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="tour_search_form">
+                                                <form action="" id="form-booking">
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                                            <div class="flight_Search_boxed">
+                                                                <p>Booking Ref:</p>
+                                                                <input id="PNR" type="text" placeholder="EX: X3QH8A">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                                            <div class="flight_Search_boxed">
+                                                                <p>LastName: </p>
+                                                                <input id="lastName" type="text" placeholder="NGUYEN">
+                                                               
+                                                            </div>
+                                                        </div>
+                                                        <div class="top_form_search_button">
+                                                            <a href="#" id="search-booking" class="btn btn_theme btn_md">Search</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Top destinations -->
+<section id="top_destinations" class="section_padding_top">
+    <div class="container">
+        <!-- Section Heading -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="section_heading_center">
+                    <h2>POPULAR FLIGHTS</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tab-content" id="nav-tabContent1">
+                    <div class="tab-pane fade show active" id="nav-nepal" role="tabpanel" aria-labelledby="nav-nepal-tab">
+                        <div class="row">
+                           
+                            
+                                @foreach (var a in @Model.Destination)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                        <div class="tab_destinations_boxed">
+                                            <div class="tab_destinations_img">
+                                            <img src="~/assets/img/destination/@{@a.Image}.png" alt="img" data-Arrival="@a.Arrival" class="destination-image">
+
+                                            </div>
+                                            <div class="tab_destinations_conntent">
+                                                <h3>@a.Description</h3>
+                                                <p>
+                                                    Price starts at <span>
+                                                        @{
+                                                            string formattedRevenue = string.Format("{0:#,##0}", @a.PriceTo);
+                                                        }
+                                                        @formattedRevenue
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+@section Scripts {
+    
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $('.tab_destinations_boxed').on('click', function () {
+            var arrivalCode = $(this).find('.destination-image').data('arrival');
+            console.log("Data Attributes:", $(this).find('.destination-image').data());
+            console.log("Arrival Code:", arrivalCode);
+            $('#ArrivalCode').val(arrivalCode).change();
+            
+        });
+
+
+
+    </script>
+}

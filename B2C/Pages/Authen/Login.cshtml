@@ -1,0 +1,52 @@
+﻿@page
+@model B2C.Pages.Authen.LoginModel
+@{
+    Layout = "_LayoutAuthen";
+}
+
+<section id="theme_search_form" class="section_padding" style="padding-top: 40px">
+    <div id="" class="container ">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="common_author_boxed">
+                    <div class="common_author_heading">
+                        <h3>Login your account</h3>
+                        
+                    </div>
+                    <div class="common_author_form">
+                        <form id="main_author_form" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                            <div class="form-group">
+                                <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="user name" />
+                                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="checkbox mb-3">
+                                <label asp-for="Input.RememberMe" class="form-label">
+                                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                </label>
+                            </div>
+                            <div class="common_form_submit">
+                                <button type="submit" class="btn btn_theme btn_md">Log in</button>
+                            </div>
+                            <div class="have_acount_area">
+                                <p>Have an account? <a href="./ForgotPassword">Forgot password?</a></p>
+                            </div>
+                            <div class="have_acount_area">
+                                <p>Dont have an account? <a href="./Register">Register now</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

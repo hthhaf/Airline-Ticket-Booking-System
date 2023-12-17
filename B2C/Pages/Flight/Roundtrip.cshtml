@@ -1,0 +1,847 @@
+﻿
+@page
+@model B2C.Pages.Flight.RoundtripModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<!-- Flight Search Areas -->
+<section id="explore_area" class="section_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="left_side_search_area">
+                    <div class="left_side_search_boxed">
+                        <div class="left_side_search_heading">
+                            <h5>Filter by price</h5>
+                        </div>
+                        <div class="filter-price">
+                            <div id="price-slider" class="noUi-target noUi-ltr noUi-horizontal">
+                            </div>
+                        </div>
+                        <button class="apply" type="button">Apply</button>
+                    </div>
+                   
+                </div>
+            </div>
+            
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="flight_search_result_wrapper" >
+                            @{
+                                
+                                
+                                if (@Model.ListFlightRoundtrips.Count() != 0)
+                                {
+                                    int count = 0;
+                                    var flights = Model.ListFlightRoundtrips;
+                                    if (flights.Count() > 0)
+                                    {
+                                        foreach (var f in flights)
+                                        {
+
+                                            
+                                            TimeSpan timeDep = f.FlightDep.flight.ArrivalTime - f.FlightDep.flight.DepartureTime;
+                                            string totalDurationDep = $"{timeDep.Hours}hour {timeDep.Minutes}minute";
+
+                                            TimeSpan timeRe = f.FlightReturn.flight.ArrivalTime - f.FlightReturn.flight.DepartureTime;
+                                            string totalDurationRe = $"{timeRe.Hours}hour {timeRe.Minutes}minute";               
+
+                                            //var inventorie = f.amount;
+                                            //var amount = inventorie.TotalPrice.ToString("#,##0");
+                                            var img = $"/assets/img/common/logo.png";
+
+                                                    <!-- Flight Search Item -->
+                                            <div class="flight_search_item_wrappper" id="@($"flight_{count}")">
+                                                        <div class="flight_search_items">
+                                                            <div class="multi_city_flight_lists">
+                                                                <div class="flight_multis_area_wrapper">
+                                                                    <div class="flight_search_left">
+                                                                        <div class="flight_logo">
+                                                                            <img src="@img" alt="img">
+                                                                        </div>
+                                                                        
+                                                                        </div>
+
+                                                                    
+                                                                    <div class="flight_search_middel">
+                                                                <div class="col-lg">
+                                                                    <div class="flight_search_destination">
+                                                                        <p>From</p>
+                                                                        <h3>@f.FlightDep.flight.Departure</h3>
+
+                                                                        @{
+                                                                            foreach (var d in @Model.Airports)
+                                                                            {
+                                                                                if (d.Code == @f.FlightDep.flight.Departure)
+                                                                                {
+                                                                                    <h6>@d.Location</h6>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="flight_search_destination">
+                                                                        <p>From</p>
+                                                                        <h3>@f.FlightReturn.flight.Departure</h3>
+
+                                                                        @{
+                                                                            foreach (var e in @Model.Airports)
+                                                                            {
+                                                                                if (e.Code == @f.FlightReturn.flight.Departure)
+                                                                                {
+                                                                                    <h6>@e.Location</h6>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                        <div class="col">
+                                                                    <div class="flight_right_arrow">
+                                                                        <img src="/assets/img/icon/right_arrow.png" alt="icon">
+                                                                        <h6>Non-stop</h6>
+                                                                        <p>@totalDurationDep </p>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="flight_right_arrow">
+                                                                        <img src="/assets/img/icon/right_arrow.png" alt="icon">
+                                                                        <h6>Non-stop</h6>
+                                                                        <p>@totalDurationRe </p>
+                                                                    </div>
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                    <div class="flight_search_destination">
+                                                                        <p>To</p>
+                                                                        <h3>@f.FlightDep.flight.Arrival</h3>
+                                                                        @{
+                                                                            foreach (var g in @Model.Airports)
+                                                                            {
+                                                                                if (g.Code == @f.FlightDep.flight.Arrival)
+                                                                                {
+                                                                                    <h6>@g.Location</h6>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="flight_search_destination">
+                                                                        <p>To</p>
+                                                                        <h3>@f.FlightReturn.flight.Arrival</h3>
+                                                                        @{
+                                                                            foreach (var b in @Model.Airports)
+                                                                            {
+                                                                                if (b.Code == @f.FlightReturn.flight.Arrival)
+                                                                                {
+                                                                                    <h6>@b.Location</h6>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flight_search_right">
+                                                                <div style="height:20px"></div>
+                                                                <h3>@(f.amount != null ? f.amount.ToString("N0") : "N/A")</h3>
+                                                                @{
+                                                                    if (f.FlightDep.passengercount > 1)
+                                                                        {
+                                                                          <h6>For all passengers</h6>
+                                                                        }
+                                                                 }
+                                                                <a href="#" onclick="Choosen(this)" class="btn btn_theme btn_sm">
+                                                                    Choosen
+                                                                </a>
+                                                                <h6 data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show more <i class="fas fa-chevron-down"></i></h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flight_policy_refund collapse" id="collapseExample">
+                                                            <div class="col">
+                                                                <div class="flight-shoe_dow_item">
+                                                                    <div class="airline-details">
+                                                                        <div class="img"><img src="/assets/img/icon/bg.png" alt="img"></div>
+                                                                        <span class="airlineName fw-500">
+                                                                    Flight To: @f.FlightDep.flight.Code
+                                                                        </span>
+                                                                <span class="flightNumber"></span>
+                                                                    </div>
+                                                                    <div class="flight_inner_show_component">
+                                                                        <div class="flight_det_wrapper">
+                                                                            <div class="flight_det">
+                                                                                <div class="code_time">
+                                                                            <span class="code">@f.FlightDep.flight.Departure</span>
+                                                                            <span class="time">@f.FlightDep.flight.DepartureTime.ToString("HH:mm")</span>
+                                                                                   
+                                                                                </div>
+                                                                                
+                                                                                    
+                                                                                    @{
+                                                                                foreach (var a in Model.Airports)
+                                                                                {
+                                                                                if (a.Code == @f.FlightDep.flight.Departure)
+                                                                                    {
+                                                                                                    <p class="airport"> @a.Name</p>
+                                                                                    }
+                                                                                }
+                                                                                    }
+
+                                                                        <p class="date">@f.FlightDep.flight.DepartureTime.ToString("yyyy-MM-dd")</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="flight_duration">
+                                                                            <div class="arrow_right"></div>
+                                                                            <span>@totalDurationDep</span>
+                                                                        </div>
+                                                                        <div class="flight_det_wrapper">
+                                                                            <div class="flight_det">
+                                                                                <div class="code_time">
+                                                                            <span class="code">@f.FlightDep.flight.Arrival</span>
+                                                                            <span class="time">@f.FlightDep.flight.ArrivalTime.ToString("HH:mm")</span>
+
+                                                                                </div>
+                                                                                @{
+                                                                            foreach (var a in Model.Airports)
+                                                                            {
+                                                                                if (a.Code == @f.FlightDep.flight.Arrival)
+                                                                                {
+                                                                                                    <p class="airport"> @a.Name</p>
+                                                                                }
+                                                                            }
+                                                                                }
+                                                                        <p class="date">@f.FlightDep.flight.ArrivalTime.ToString("yyyy-MM-dd")</p>
+                                                                            </div>
+                                                                        </div>
+                                                                <div class="TabPanelInner">
+                                                                    <h4>Baggage</h4>
+                                                                    <div class="flight_info_taable">
+                                                                        <h3>@f.FlightDep.flight.Departure-@f.FlightDep.flight.Arrival</h3>
+                                                                        <p><span>20KG /</span> person</p>
+                                                                    </div>
+                                                                </div>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+
+                                                        <div class="flight-shoe_dow_item">
+                                                            <div class="airline-details">
+                                                                <div class="img"><img src="/assets/img/icon/bg.png" alt="img"></div>
+                                                                <span class="airlineName fw-500">
+                                                                    Flight Return: @f.FlightReturn.flight.Code
+
+                                                                </span>
+                                                                <span class="flightNumber"></span>
+                                                            </div>
+                                                            <div class="flight_inner_show_component">
+                                                                <div class="flight_det_wrapper">
+                                                                    <div class="flight_det">
+                                                                        <div class="code_time">
+                                                                            <span class="code">@f.FlightReturn.flight.Departure</span>
+                                                                            <span class="time">@f.FlightReturn.flight.DepartureTime.ToString("HH:mm")</span>
+
+                                                                        </div>
+
+
+                                                                        @{
+                                                                            foreach (var a in Model.Airports)
+                                                                            {
+                                                                                if (a.Code == @f.FlightReturn.flight.Departure)
+                                                                                {
+                                                                                    <p class="airport"> @a.Name</p>
+                                                                                }
+                                                                            }
+                                                                        }
+
+                                                                        <p class="date">@f.FlightReturn.flight.DepartureTime.ToString("yyyy-MM-dd")</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="flight_duration">
+                                                                    <div class="arrow_right"></div>
+                                                                    <span>@totalDurationRe</span>
+                                                                </div>
+                                                                <div class="flight_det_wrapper">
+                                                                    <div class="flight_det">
+                                                                        <div class="code_time">
+                                                                            <span class="code">@f.FlightReturn.flight.Arrival</span>
+                                                                            <span class="time">@f.FlightReturn.flight.ArrivalTime.ToString("HH:mm")</span>
+
+                                                                        </div>
+                                                                        @{
+                                                                            foreach (var a in Model.Airports)
+                                                                            {
+                                                                                if (a.Code == @f.FlightReturn.flight.Arrival)
+                                                                                {
+                                                                                    <p class="airport"> @a.Name</p>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        <p class="date">@f.FlightReturn.flight.ArrivalTime.ToString("yyyy-MM-dd")</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="TabPanelInner">
+                                                                    <h4>Baggage</h4>
+                                                                    <div class="flight_info_taable">
+                                                                        <h3>@f.FlightReturn.flight.Departure-@f.FlightReturn.flight.Arrival</h3>
+                                                                        <p><span>20KG /</span> person</p>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                            </div>
+                                                            <div class="flight_refund_policy">
+                                                                 <div class="TabPanelInner flex_widht_less">
+                                                                        <h4>Refund Policy</h4>
+                                                                        <p class="fz12">
+                                                                            1. Refund and Date Change are done as per the
+                                                                            following policies.
+                                                                        </p>
+                                                                        <p class="fz12">
+                                                                            2. Refund Amount= Refund Charge (as per airline
+                                                                            policy + ShareTrip Convenience Fee).
+                                                                        </p>
+                                                                        <p class="fz12">
+                                                                            3. Date Change Amount= Date Change Fee (as per
+                                                                            Airline Policy + ShareTrip Convenience Fee).
+                                                                        </p>
+                                                                    </div>
+                                                                    
+                                                                    
+                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                            count++;
+                                        }
+                                    }
+                                }
+
+                                else
+                                {
+                                    <div class="load_more_flight">
+                                        <P></P>
+                                        <h3 class="heading_theme"> HAVE NO FLIGHT</h3>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- Tour Booking Submission Areas -->
+<section id="tour_booking_submission" style="display:none" class="section_padding">
+    <div class="container">
+        <form id="form-create-booking" method="post">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="tou_booking_form_Wrapper">
+                        <div class="booking_tour_form">
+                            <h3 class="heading_theme">Contact information</h3>
+                            
+                            <div class="tour_booking_form_box">
+                                <div class="row">
+                                    @{
+                                        if (User.Identity?.Name != null)
+                                        {
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="text" asp-for="Abooking.ContactFirstName" value="@Model.UserLoginInfo.FirstName" class="form-control bg_input" placeholder="FirstName*" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="text" asp-for="Abooking.ContactLastName" value="@Model.UserLoginInfo.LastName" class="form-control bg_input" placeholder="LastName*" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="email" asp-for="Abooking.ContactEmail" value="@Model.UserLogin.Email" class="form-control bg_input" placeholder="Email*" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="text" asp-for="Abooking.ContactPhoneNumber" value="@Model.UserLoginInfo.Phone" class="form-control bg_input" placeholder="Phone*" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <input type="text" asp-for="Abooking.ContactAddress" value="@Model.UserLoginInfo.Address" class="form-control bg_input" placeholder="Address*" required>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="text" asp-for="Abooking.ContactFirstName" value="" class="form-control bg_input" placeholder="FirstName*" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="text" asp-for="Abooking.ContactLastName" value="" class="form-control bg_input" placeholder="LastName*" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="email" asp-for="Abooking.ContactEmail" value="" class="form-control bg_input" placeholder="Email*" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="text" asp-for="Abooking.ContactPhoneNumber" value="" class="form-control bg_input" placeholder="Phone*" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <input type="text" asp-for="Abooking.ContactAddress" value="" class="form-control bg_input" placeholder="Address*" required>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                       
+                                </div>
+                            </div>
+                        </div>
+                        <div class="booking_tour_form">
+                            <h3 class="heading_theme">Passenger information</h3>
+                            <div id="paxInfo" class="tour_booking_form_box">
+                                @for (var i = 0; i < Model.paxCount; i++)
+                                {
+                                    if(Model.paxCount != 1)
+                                    {
+                                        <div class="row" style="margin-bottom: 10px; margin-top: 15px"><h5>Passenger @(i + 1)</h5></div>
+                                    }
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input type="text" asp-for="Passengers[i].LastName" value="" class="form-control bg_input" placeholder="Last name*" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input type="text" asp-for="Passengers[i].FirstName" value="" class="form-control bg_input" placeholder="First name*" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <select asp-for="Passengers[i].Title" class="form-control form-select bg_input" required>
+                                                    <option value="MR" selected>Male</option>
+                                                    <option value="MISS">Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input type="date" asp-for="Passengers[i].DateOfBirth" value="" class="form-control bg_input" placeholder="Date of birth*" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+
+                        <input id="Route" type="hidden" asp-for="Abooking.Route" />
+                        <input id="FlightNumber" type="hidden" asp-for="Abooking.FlightNumber" />
+                        <input id="Departure" type="hidden" asp-for="Abooking.Departure" />
+                        <input id="Arrival" type="hidden" asp-for="Abooking.Arrival" />
+                        <input id="DepartureDate" type="hidden" asp-for="Abooking.DepartureDate" />
+                        <input id="ArrivalDate" type="hidden" asp-for="Abooking.ArrivalDate" /> 
+                        <input id="FlightNumberRe" type="hidden" asp-for="Abooking.FlightNumberRe" />
+                        <input id="DepartureDateRe" type="hidden" asp-for="Abooking.DepartureDateRe" />
+                        <input id="ArrivalDateRe" type="hidden" asp-for="Abooking.ArrivalDateRe" />
+                        <input id="Amount" type="hidden" asp-for="Abooking.BalancedDue" />
+                        <input id="PaxCount" type="hidden" asp-for="Abooking.PassengerCount" />
+                            
+                        
+                       
+
+                        <div class="booking_tour_form">
+                            <h3 class="heading_theme">Payment method</h3>
+                            <div class="tour_booking_form_box">
+                                <div class="booking_payment_boxed">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="red" >
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Payment by card
+                                        </label>
+                                    </div>
+                                    <div class="payment_filed_wrapper">
+                                        <div class="payment_card red" style="display: none;">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control bg_input" placeholder="Card number" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control bg_input" placeholder="Cardholder name" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control bg_input" placeholder="Date of expiry" required >
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control bg_input" placeholder="Security code" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="booking_tour_form_submit">
+                            <div class="form-check write_spical_check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultf1" required>
+                                <label class="form-check-label" for="flexCheckDefaultf1">
+                                    I read and accept all <a href="terms-service.html">Terms and conditios</a>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn_theme btn_md">Booking Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h3 class="heading_theme">Summary</h3>
+                    <div class="tour_details_right_sidebar_wrapper">
+                        <div class="tour_detail_right_sidebar">
+                            <div class="tour_details_right_boxed">
+                                <div class="row">
+                                    <h6>Flights <h5 class="FlightCode"></h5></h6>
+
+                                </div>
+                                <div class="flight_sidebar_right">
+                                    <div class="flight_search_left_sidebar">
+                                    </div>
+
+                                    <div class="flight_search_middel_sidebar">
+                                        <div class="flight_search_destination_sidebar">
+                                            <p class="DepartureTime">07</p>
+                                            <h3 class="DepartureCode">SGN</h3>
+                                          
+                                        </div>
+                                        <div class="flight_right_arrow_sidebar">
+                                            <img src="~/assets/img/icon/right_arrow.png" alt="icon">
+                                            <h6>Non-stop</h6>
+                                            <p class="Duration"> </p>
+                                        </div>
+                                        <div class="flight_search_destination_sidebar">
+                                            <p class="ArrivalTime">To</p>
+                                            <h3 class="ArrivalCode">HAN</h3>
+                                           
+                                        </div>
+                                    </div>
+                                    <div style="padding: 0px 0 20px 15px">
+
+                                        <h6 class="SeatClass" style="color:#8B3EEA"></h6>
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                <div class="row">
+                                    <h6>Flights <h5 class="FlightCodeRe"></h5></h6>
+                                    
+                                </div>
+                                <div class="flight_sidebar_right">
+                                    <div class="flight_search_left_sidebar">
+                                        
+                                    </div>
+                                    
+                                    <div class="flight_search_middel_sidebar">
+                                        <div class="flight_search_destination_sidebar">
+                                            <p class="DepartureTimeRe">07</p>
+                                            <h3 class="DepartureCodeRe">SGN</h3>
+                                            
+                                        </div>
+                                        <div class="flight_right_arrow_sidebar">
+                                            <img src="~/assets/img/icon/right_arrow.png" alt="icon">
+                                            <h6>Non-stop</h6>
+                                            <p class="DurationRe"> </p>
+                                        </div>
+                                        <div class="flight_search_destination_sidebar">
+                                            <p class="ArrivalTimeRe">To</p>
+                                            <h3 class="ArrivalCodeRe">HAN</h3>
+                                            
+                                        </div>
+                                    </div>
+                                    <div style="padding: 0px 0 20px 15px">
+                                        
+                                        <h6 class="SeatClass" style="color:#8B3EEA"></h6>
+                                    </div>
+                                </div>
+
+                                <hr /> 
+
+                                <div class="tour_package_details_bar_list">
+                                    <h5>Refund Policy</h5>
+                                    <ul>
+                                        <li>
+                                            1. Refund and Date Change are done as per the following policies.
+                                        </li>
+                                        <li>
+                                            2. Refund Amount= Refund Charge (as per airline policy + ShareTrip Convenience Fee).
+                                        </li>
+                                        <li>
+                                            3. Date Change Amount= Date Change Fee (as per Airline Policy + ShareTrip Convenience Fee).
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tour_package_details_bar_price">
+                                    <h5>Price</h5><div class="tour_booking_amount_area">
+                                        <ul>
+                                            <li>Fee <span class="Fare">0</span></li>
+                                            <li>Tax <span class="Charge">0</span></li>
+                                            <li>Total<span class="Total">0</span></li>
+                                        </ul>
+                                        <div class="coupon_add_area">
+                                            <h6>
+                                                <span class="remove_coupon_tour">Remove</span> Coupon code (OFF 0)
+                                                <span>0</span>
+                                            </h6>
+                                        </div>
+                                        <div class="total_subtotal_booking">
+                                            <h6>Total Amount <span class="Total">0</span> </h6>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tour_detail_right_sidebar">
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        $('input[type="radio"]').on('click', function () {
+            var inputValue = $(this).attr("value");
+            var targetBox = $("." + inputValue);
+            $(".payment_toggle").not(targetBox).hide();
+            $(targetBox).show();
+        });
+
+        $('#form-create-booking :submit').click(function (e) {
+            var form = $("#form-create-booking");
+
+            if (form[0].checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            form.addClass('was-validated');
+        })
+
+        function formatNumber(number, fixed = 1) {
+            if (!number)
+                return "0";
+
+            return number.toFixed(fixed).replace(/^\d\./, '0$&');
+        }
+
+        function formatDate(date) {
+            if (!date)
+                return '';
+
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        function formatTime(date) {
+            if (!date)
+                return '';
+
+            var d = new Date(date),
+                hour = '' + (d.getHours()),
+                minute = '' + d.getMinutes();
+
+            if (hour.length < 2)
+                hour = '0' + hour;
+            if (minute.length < 2)
+                minute = '0' + minute;
+
+            return [hour, minute].join(':');
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            // Kiểm tra xem noUiSlider đã được định nghĩa và khởi tạo chưa
+            if (typeof noUiSlider === 'object') {
+                var priceSlider = document.getElementById('price-slider');
+
+                // Kiểm tra xem #price-slider elem có tồn tại không, nếu không thì return để tránh lỗi
+                if (!priceSlider) return;
+
+                // Lấy nút "Apply"
+                var applyButton = document.querySelector('.apply');
+
+                // Thêm sự kiện click cho nút "Apply"
+                applyButton.addEventListener('click', function () {
+                    // Lấy giá trị từ thanh trượt
+                    var selectedPrice = priceSlider.noUiSlider.get();
+
+                    // Lọc dữ liệu dựa trên giá trị đã chọn
+                    filterTickets(selectedPrice);
+                });
+            }
+
+            // Initially display all flights
+            displayAllFlights();
+        });
+
+        function displayAllFlights() {
+            var flights = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListFlightRoundtrips));
+
+            flights.forEach(function (f, index) {
+                var flightElement = document.getElementById('flight_' + index);
+
+                if (flightElement) {
+                    // Add a CSS class to initially display all flights
+                    flightElement.classList.add('show-flight');
+                }
+            });
+        }
+
+        function filterTickets(selectedPrice) {
+            console.log(selectedPrice[1])
+            var flights = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListFlightRoundtrips));
+            
+            console.log(flights[0])
+            flights.forEach(function (f, index) {
+                
+                // Convert the amount to a floating-point number
+                var flightPrice = parseFloat(f.amount);
+
+                // Log the flightPrice, index, and the corresponding HTML element
+                console.log('Flight Price:', flightPrice);
+                console.log('Index:', index);
+                var flightElement = document.getElementById('flight_' + index);
+                console.log('Flight Element:', flightElement);
+
+                // Check if the element exists
+                if (flightElement) {
+                    // Check if the flight price is not NaN and is less than or equal to the selected price
+                    if (flightPrice <= selectedPrice[1]) {
+                        flightElement.style.display = 'block';
+                    } else {
+                        flightElement.style.display = 'none';
+                    }
+                }
+            });
+        }
+        function convertToHourMinuteString(totalSeconds) {
+            var hours = Math.floor(totalSeconds / 3600);
+            var minutes = Math.floor((totalSeconds % 3600) / 60);
+            var seconds = totalSeconds % 60;
+
+            var result = '';
+
+            if (hours > 0) {
+                result += hours + ' h ';
+            }
+
+            if (minutes > 0 || (hours === 0 && seconds === 0)) {
+                result += minutes + ' minutes';
+            }
+
+            if (seconds > 0 && hours === 0) {
+                result += seconds + ' seconds';
+            }
+
+            return result.trim();
+        }
+
+        function Choosen(e) {
+            var parent = $(e).closest('.flight_search_item_wrappper');
+            var index = parent.index();
+            console.log(JSON.stringify($model.flightsWithPrice));
+            
+            var flight = $model[index];
+            console.log(flight);
+            $data = flight;
+            
+
+            $parent = $('#tour_booking_submission')
+            $('.DepartureTime', $parent).text(formatTime(flight.FlightDep.flight.DepartureTime));
+            $('.DepartureCode', $parent).text(flight.FlightDep.flight.Departure);
+            $('.ArrivalTime', $parent).text(formatTime(flight.FlightDep.flight.ArrivalTime));
+            $('.ArrivalCode', $parent).text(flight.FlightDep.flight.Arrival);
+            $('.FlightCode', $parent).text(flight.FlightDep.flight.Code);
+            $('.Duration', $parent).text(convertToHourMinuteString(flight.FlightDep.flight.Duration));
+            $('.Fare', $parent).text(flight.amount.toLocaleString());
+            $('.Charge', $parent).text(flight.tax.toLocaleString());
+            $('.Total', $parent).text((flight.amount + flight.tax).toLocaleString());
+
+            $('.DepartureTimeRe', $parent).text(formatTime(flight.FlightReturn.flight.DepartureTime));
+            $('.DepartureCodeRe', $parent).text(flight.FlightReturn.flight.Departure);
+            $('.ArrivalTimeRe', $parent).text(formatTime(flight.FlightReturn.flight.ArrivalTime));
+            $('.ArrivalCodeRe', $parent).text(flight.FlightReturn.flight.Arrival);
+            $('.FlightCodeRe', $parent).text(flight.FlightReturn.flight.Code);
+            $('.DurationRe', $parent).text(convertToHourMinuteString(flight.FlightReturn.flight.Duration));
+            $('.FareRe', $parent).text(flight.FlightReturn.amount.toLocaleString());
+            $('.ChargeRe', $parent).text(flight.FlightReturn.tax.toLocaleString());
+            $('.TotalRe', $parent).text((flight.FlightReturn.amount + flight.FlightReturn.tax).toLocaleString());
+
+
+            $('#Route').val(flight.FlightDep.flight.Route).trigger('change');
+            $('#FlightNumber').val(flight.FlightDep.flight.Code).trigger('change');
+            $('#Departure').val(flight.FlightDep.flight.Departure).trigger('change');
+            $('#Arrival').val(flight.FlightDep.flight.Arrival).trigger('change');
+            $('#DepartureDate').val(flight.FlightDep.flight.DepartureTime).trigger('change');
+            $('#ArrivalDate').val(flight.FlightDep.flight.ArrivalTime).trigger('change');
+            $('#Amount').val(flight.amount + flight.tax).trigger('change');
+            $('#PaxCount').val(flight.FlightDep.passengercount).trigger('change');
+
+            
+            $('#FlightNumberRe').val(flight.FlightReturn.flight.Code).trigger('change');
+            $('#DepartureRe').val(flight.FlightReturn.flight.Departure).trigger('change');
+            $('#ArrivalRe').val(flight.FlightReturn.flight.Arrival).trigger('change');
+            $('#DepartureDateRe').val(flight.FlightReturn.flight.DepartureTime).trigger('change');
+            $('#ArrivalDateRe').val(flight.FlightReturn.flight.ArrivalTime).trigger('change');
+            
+
+            $('#explore_area').hide();
+            $parent.show();
+        }
+        
+
+        var $model = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListFlightRoundtrips));
+        
+        var $data = null
+
+    </script>
+}

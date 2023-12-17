@@ -1,0 +1,170 @@
+﻿@page
+@model B2C.Pages.Authen.ProfileModel
+@{
+    Layout = "_LayoutAuthen";
+}
+
+<section id="theme_search_form" class="section_padding" style="padding-top: 50px">
+    
+    <div id="dashboard_main_arae " class="container theme_search_form_area">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="dashboard_sidebar ">
+                    <div class="dashboard_sidebar_user">
+                        <img src="~/assets/img/common/user.png" alt="img">
+                        <h3>@Model.UserLogin.UserName</h3>
+                        <p><a href="tel:+00-123-456-789">@Model.UserLogin.PhoneNumber</a></p>
+                        <p><a href="mailto:@Model.UserLogin.Email">@Model.UserLogin.Email</a></p>
+                    </div>
+                    <div class="dashboard_menu_area">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="flights-tab" data-bs-toggle="tab" data-bs-target="#profiles" role="tab" aria-controls="profiles" aria-selected="true">
+                                    <i class="fas fa-user-circle"></i>My profile
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="flights-tab" data-bs-toggle="tab" data-bs-target="#bookings" role="tab" aria-controls="bookings" aria-selected="false">
+                                    <i class="fas fa-paper-plane"></i>Booking
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="profiles" role="tabpanel" aria-labelledby="profiles-tab">
+                        <div class="dashboard_common_table">
+                            <h3>My Profile</h3>
+                            <div class="profile_update_form">
+                                <form action="" method="post" id="profile_form_area">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="f-name">User name</label>
+                                                <input type="text" value="@Model.UserLogin.UserName" class="form-control" id="f-name" placeholder="User name" disabled>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="mail-address">Email address</label>
+                                                <input type="text" value="@Model.UserLogin.Email" class="form-control" id="mail-address" placeholder="Email address" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="mobil-number">First Name</label>
+                                                <input type="text" asp-for="UserLoginInfo.FirstName" class="form-control" id="mail-address" placeholder="First Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="mobil-number">Last Name</label>
+                                                <input type="text"  asp-for="UserLoginInfo.LastName" class="form-control" id="mail-address" placeholder="Last Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="mobil-number">Mobile number</label>
+                                                <input type="number" asp-for="UserLoginInfo.Phone" class="form-control" id="mail-address" placeholder="Mobile number">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="mobil-number">Address</label>
+                                                <input type="text"  asp-for="UserLoginInfo.Address" class="form-control" id="mail-address" placeholder="Address">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="profile_submit">
+                                                <button type="submit" class="btn btn_theme btn_md">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="bookings" role="tabpanel" aria-labelledby="bookings-tab">
+                        <div class="dashboard_main_top">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="dashboard_top_boxed">
+                                        <div class="dashboard_top_icon">
+                                            <i class="fas fa-shopping-bag" style="height:50px"></i>
+                                        </div>
+                                        <div class="dashboard_top_text">
+                                            <h3>Total bookings</h3>
+                                            <h2>@Model.Bookings.Count</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard_common_table">
+                            <h3>My bookings</h3>
+                            <div class="table-responsive-lg table_common_area">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Route</th>
+                                            <th>Departure Date</th>
+                                            <th>Type</th>
+                                            <th>Flight Number</th>
+                                            <th>Confirmation</th>
+                                            <th>Status</th>
+                                            <th>Balanced Due</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            if(Model.Bookings != null && Model.Bookings.Count > 0)
+                                            {
+                                                foreach (var item in Model.Bookings)
+                                                {
+                                                        <tr>
+                                                            <td>@item.Route</td>
+                                                            <td>@item.DepartureDate</td>
+                                                            <td>@item.ReservationType</td>
+                                                            <td>@item.FlightNumber</td>
+                                                            <td>@item.ConfirmationNumber</td>
+                                                            <td>@item.BookingStatus</td>
+                                                            <td>@item.BalancedDue</td>
+                                                        </tr>
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                   
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Check if the TempData flag is set
+        var showSweetAlert = @((bool)(TempData["ShowSweetAlert"] ?? false) ? "true" : "false");
+
+        if (showSweetAlert) {
+            // Show SweetAlert when the flag is true
+            Swal.fire({
+                title: 'Success!',
+                text: 'Data saved successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        }
+    </script>
+}

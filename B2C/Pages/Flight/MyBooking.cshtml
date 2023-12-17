@@ -1,0 +1,337 @@
+﻿@page
+@model B2C.Pages.Flight.MyBookingModel
+@{
+}
+
+<section id="tour_booking_submission" class="section_padding">
+    <div class="container">
+        <div class="row">
+            @{
+                if (Model.Pax != null)
+                {
+                    if(Model.Abooking.ReservationType == "Roundtrip")
+                    {
+                        <div class="tour_details_right_boxed">
+                            <div class="tour_details_right_box_heading">
+                                <h3>Booking</h3>
+                            </div>
+                            <div class="tour_package_details_bar_list">
+
+                                <ul>
+                                    <li>
+                                        <i class="fas fa-circle"></i>Booking ref:<h4 style="padding-left: 20px">@Model.Abooking.ConfirmationNumber</h4>
+                                    </li>
+                                    <li><i class="fas fa-circle"></i>Type:    <p style="padding-left: 20px">@Model.Abooking.ReservationType</p></li>
+
+                                </ul>
+                            </div>
+                            <hr>
+                            <div>Flight Dep: @Model.Abooking.FlightNumber</div>
+                            <div class="flight_sidebar_right">
+
+                                <div class="flight_search_left_sidebar" style="width: 150px!important">
+                                    <div class="flight_search_destination_sidebar" style="width: 150px!important">
+                                        <p>From</p>
+                                        @{
+                                            foreach (var a in Model.Airports)
+                                            {
+                                                if (a.Code == Model.Abooking.Departure)
+                                                {
+                                                    <h3 style="padding-top: 10px">
+                                                        @a.Location
+                                                    </h3>
+
+                                                    <h6 style="padding-top: 10px">@a.Code - @a.Name</h6>
+                                                    <h4 style="padding-top: 10px">@Model.Abooking.DepartureDate</h4>
+                                                }
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+                                @{
+                                    TimeSpan? time = Model.Abooking.ArrivalDate - Model.Abooking.DepartureDate;
+                                    string totalDuration = "";
+                                    if (time.HasValue)
+                                    {
+                                         totalDuration = $"{time.Value.Hours} hour {time.Value.Minutes} minute";
+                                        // Use totalDuration as needed
+                                    }
+                                    else
+                                    {
+                                        // Handle the case when time is null
+                                         totalDuration = "Unknown"; // or any default value you prefer
+                                                                          // Use totalDuration as needed
+                                    }
+                                }
+                                <div class="flight_search_middel_sidebar" style="width: 150px!important">
+                                    <div class="flight_right_arrow_sidebar" style="width: 150px!important">
+                                        <img src="~/assets/img/icon/right_arrow.png" alt="icon">
+                                        <h6>Non-stop</h6>
+                                        <p>@totalDuration </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flight_search_destination_sidebar" style="width: 150px!important">
+                                        <p>To</p>
+                                        @{
+                                            foreach (var a in Model.Airports)
+                                            {
+                                                if (a.Code == Model.Abooking.Arrival)
+                                                {
+                                                    <h3 style="padding-top: 10px">
+                                                        @a.Location
+                                                    </h3>
+
+                                                    <h6 style="padding-top: 10px">@a.Code - @a.Name</h6>
+                                                    <h4 style="padding-top: 10px">@Model.Abooking.ArrivalDate</h4>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>Flight Return : @Model.Abooking.FlightNumberRe</div>
+                            <div class="flight_sidebar_right">
+
+                                <div class="flight_search_left_sidebar" style="width: 150px!important">
+                                    <div class="flight_search_destination_sidebar" style="width: 150px!important">
+                                        <p>From</p>
+                                        @{
+                                            foreach (var a in Model.Airports)
+                                            {
+                                                if (a.Code == Model.Abooking.Arrival)
+                                                {
+                                                    <h3 style="padding-top: 10px">
+                                                        @a.Location
+                                                    </h3>
+
+                                                    <h6 style="padding-top: 10px">@a.Code - @a.Name</h6>
+                                                    <h4 style="padding-top: 10px">@Model.Abooking.DepartureDateRe</h4>
+                                                }
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+                                @{
+                                    TimeSpan? timere = Model.Abooking.ArrivalDateRe - Model.Abooking.DepartureDateRe;
+                                    string totalDurationre = "";
+                                    if (time.HasValue)
+                                    {
+                                        totalDurationre = $"{timere.Value.Hours} hour {timere.Value.Minutes} minute";
+                                        // Use totalDuration as needed
+                                    }
+                                    else
+                                    {
+                                        // Handle the case when time is null
+                                        totalDurationre = "Unknown"; // or any default value you prefer
+                                                                   // Use totalDuration as needed
+                                    }
+                                }
+                                <div class="flight_search_middel_sidebar" style="width: 150px!important">
+                                    <div class="flight_right_arrow_sidebar" style="width: 150px!important">
+                                        <img src="~/assets/img/icon/right_arrow.png" alt="icon">
+                                        <h6>Non-stop</h6>
+                                        <p>totalDurationre </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flight_search_destination_sidebar" style="width: 150px!important">
+                                        <p>To</p>
+                                        @{
+                                            foreach (var a in Model.Airports)
+                                            {
+                                                if (a.Code == Model.Abooking.Departure)
+                                                {
+                                                    <h3 style="padding-top: 10px">
+                                                        @a.Location
+                                                    </h3>
+
+                                                    <h6 style="padding-top: 10px">@a.Code - @a.Name</h6>
+                                                    <h4 style="padding-top: 10px">@Model.Abooking.ArrivalDateRe</h4>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="tour_package_details_bar_list">
+                                <h5>Passenger</h5>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 150px!important">
+                                                Title
+                                            </th>
+                                            <th style="width: 150px!important">LastName</th>
+                                            <th style="width: 150px!important">FirtName</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var p in Model.Pax)
+                                            {
+
+                                                <tr>
+                                                    <th>
+                                                        @p.Title
+                                                    </th>
+                                                    <th>@p.LastName</th>
+                                                    <th>@p.FirstName</th>
+                                                </tr>
+
+
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tour_package_details_bar_price">
+                                <h5>Paid Amount</h5>
+                                <div class="tour_package_bar_price">
+                                    <h6>@Model.Abooking.BalancedDue?.ToString("N0") VND</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="tour_details_right_boxed">
+                            <div class="tour_details_right_box_heading">
+                                <h3>Booking</h3>
+                            </div>
+                            <div class="tour_package_details_bar_list">
+
+                                <ul>
+                                    <li>
+                                        <i class="fas fa-circle"></i>Booking ref:<h4 style="padding-left: 20px">@Model.Abooking.ConfirmationNumber</h4>
+                                    </li>
+                                    <li><i class="fas fa-circle"></i>Type:    <p style="padding-left: 20px">@Model.Abooking.ReservationType</p></li>
+
+                                </ul>
+                            </div>
+                            <hr>
+                            <div>Flight: @Model.Abooking.FlightNumber</div>
+                            <div class="flight_sidebar_right">
+
+                                <div class="flight_search_left_sidebar" style="width: 150px!important">
+                                    <div class="flight_search_destination_sidebar" style="width: 150px!important">
+                                        <p>From</p>
+                                        @{
+                                            foreach (var a in Model.Airports)
+                                            {
+                                                if (a.Code == Model.Abooking.Departure)
+                                                {
+                                                    <h3 style="padding-top: 10px">
+                                                        @a.Location
+                                                    </h3>
+
+                                                    <h6 style="padding-top: 10px">@a.Code - @a.Name</h6>
+                                                    <h4 style="padding-top: 10px">@Model.Abooking.DepartureDate</h4>
+                                                }
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+                                @{
+                                    TimeSpan? time = Model.Abooking.ArrivalDate - Model.Abooking.DepartureDate;
+                                    string totalDuration = "";
+                                    if (time.HasValue)
+                                    {
+                                        totalDuration = $"{time.Value.Hours} hour {time.Value.Minutes} minute";
+                                        // Use totalDuration as needed
+                                    }
+                                    else
+                                    {
+                                        // Handle the case when time is null
+                                        totalDuration = "Unknown"; // or any default value you prefer
+                                                                   // Use totalDuration as needed
+                                    }
+                                }
+                                <div class="flight_search_middel_sidebar" style="width: 150px!important">
+                                    <div class="flight_right_arrow_sidebar" style="width: 150px!important">
+                                        <img src="~/assets/img/icon/right_arrow.png" alt="icon">
+                                        <h6>Non-stop</h6>
+                                        <p>@totalDuration </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flight_search_destination_sidebar" style="width: 150px!important">
+                                        <p>To</p>
+                                        @{
+                                            foreach (var a in Model.Airports)
+                                            {
+                                                if (a.Code == Model.Abooking.Arrival)
+                                                {
+                                                    <h3 style="padding-top: 10px">
+                                                        @a.Location
+                                                    </h3>
+
+                                                    <h6 style="padding-top: 10px">@a.Code - @a.Name</h6>
+                                                    <h4 style="padding-top: 10px">@Model.Abooking.ArrivalDate</h4>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="tour_package_details_bar_list">
+                                <h5>Passenger</h5>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 150px!important">
+                                                Title
+                                            </th>
+                                            <th style="width: 150px!important">LastName</th>
+                                            <th style="width: 150px!important">FirtName</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var p in Model.Pax)
+                                            {
+
+                                                <tr>
+                                                    <th>
+                                                        @p.Title
+                                                    </th>
+                                                    <th>@p.LastName</th>
+                                                    <th>@p.FirstName</th>
+                                                </tr>
+
+
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tour_package_details_bar_price">
+                                <h5>Paid Amount</h5>
+                                <div class="tour_package_bar_price">
+                                    <h6>@Model.Abooking.BalancedDue?.ToString("N0") VND</h6>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    
+                    <div class="load_more_flight">
+                        <P></P>
+                        <h3 class="heading_theme">PNR or lastName not found.</h3>
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
+</section>

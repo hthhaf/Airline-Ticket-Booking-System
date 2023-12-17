@@ -1,0 +1,206 @@
+﻿@model B2C.Model.Template
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html style="min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #444;
+    background: linear-gradient(60deg, darken(#25293c, 10%), lighten(#25293c, 10%) );">
+<head>
+	<meta name="viewport" content="width=device-width">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="format-detection" content="telephone=no">
+
+</head>
+
+<body border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" background-color="#F7F7F7" style="margin: 0; line-height: 1.5;">
+	<div style="width: 400px; box-shadow: -3px 3px 5px rgba(0, 0, 0, .3); border-radius: 4px;">
+		<header style="padding: .5em 2em; background: #f03f55; border-radius: inherit; border-bottom-right-radius: 0; border-bottom-left-radius: 0; color: #fff;">
+			<h1 style="margin: 0; font-style: italic;">
+				Airline Ticket
+			</h1>
+		</header>
+
+		<main style="padding: 2em; background: #fff;">
+			<div style="box-sizing: border-box; display: -webkit-box; display: -ms-flexbox; display: flex;
+			-webkit-box-flex: 0;
+			-ms-flex: 0 1 auto;
+			flex: 0 1 auto;
+			-webkit-box-orient: horizontal;
+			-webkit-box-direction: normal;
+			-ms-flex-direction: row;
+			flex-direction: row;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin-right: -.5rem;
+			margin-left: -.5rem">
+				<section style="box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class="boardingPass-departur ">
+					<span style="display: block; text-transform: uppercase; font-size: .8rem; color: #444;">Booking ref: <p style="display: inline-block;line-height: 1;font-size: 1rem;">@Model.Booking.ConfirmationNumber</p> </span>
+					<span></span>
+				</section>
+
+
+			</div>
+			<div style="box-sizing: border-box; display: -webkit-box; display: -ms-flexbox; display: flex;
+			-webkit-box-flex: 0;
+			-ms-flex: 0 1 auto;
+			flex: 0 1 auto;
+			-webkit-box-orient: horizontal;
+			-webkit-box-direction: normal;
+			-ms-flex-direction: row;
+			flex-direction: row;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin-right: -.5rem;
+			margin-left: -.5rem">
+				<section style="box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class="boardingPass-departur ">
+					<span style="display: block; text-transform: uppercase; font-size: .8rem; color: #444;">From</span>
+					<span style="display: inline-block; line-height: 1; font-size: 1.5rem;">@Model.Booking.Departure</span>
+				</section>
+
+				<section style="display: flex; justify-content: center; align-items: center; box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class=" boardingPass-icon">
+					<p>----------------></p>
+				</section>
+
+				<section style="box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class="boardingPass-arrival">
+					<span style="display: block;text-transform: uppercase;font-size: .8rem;color: #444;">To</span>
+					<span style="display: inline-block;line-height: 1;font-size: 1.5rem;">@Model.Booking.Arrival</span>
+				</section>
+			</div>
+
+			<div style="width: 100%; margin: 1.5em 0; border: 0; border-bottom: 1px dashed  #444;"></div>
+
+			<div style="box-sizing: border-box; display: -webkit-box; display: -ms-flexbox; display: flex;
+			-webkit-box-flex: 0;
+			-ms-flex: 0 1 auto;
+			flex: 0 1 auto;
+			-webkit-box-orient: horizontal;
+			-webkit-box-direction: normal;
+			-ms-flex-direction: row;
+			flex-direction: row;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin-right: -.5rem;
+			margin-left: -.5rem">
+
+				<section style="box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class="boardingPass-date ">
+					<span style="display: block; text-transform: uppercase; font-size: .8rem; color: #444;">Date</span>
+					<span>
+						@Model.Booking?.DepartureDate?.ToString("yyyy-MM-dd")
+					</span>
+				</section>
+
+				<section style="box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class="boardingPass-departurTime ">
+					<span style="display: block; text-transform: uppercase;font-size: .8rem; color: #444;">Departur</span>
+					<span>@Model.Booking?.DepartureDate?.ToString("HH:mm")</span>
+				</section>
+
+				<section style="box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class="boardingPass-arrivalTime ">
+					<span style="display: block; text-transform: uppercase; font-size: .8rem; color: #444;">Arrival</span>
+					<span>@Model.Booking?.ArrivalDate?.ToString("HH:mm")</span>
+				</section>
+			</div>
+
+			<div style="width: 100%; margin: 1.5em 0; border: 0; border-bottom: 1px dashed  #444;"></div>
+
+			<div style="box-sizing: border-box; display: -webkit-box; display: -ms-flexbox; display: flex;
+			-webkit-box-flex: 0;
+			-ms-flex: 0 1 auto;
+			flex: 0 1 auto;
+			-webkit-box-orient: horizontal;
+			-webkit-box-direction: normal;
+			-ms-flex-direction: row;
+			flex-direction: row;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin-right: -.5rem;
+			margin-left: -.5rem">
+
+				<section style="box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class="boardingPass-flight ">
+					<span style="display: block; text-transform: uppercase; font-size: .8rem; color: #444;">Flight: <span> @Model.Booking.FlightNumber</span></span>
+				</section>
+			</div>
+
+
+			<div style="width: 100%; margin: 1.5em 0; border: 0; border-bottom: 1px dashed  #444;"></div>
+
+			<div style="box-sizing: border-box; display: -webkit-box; display: -ms-flexbox; display: flex;
+			-webkit-box-flex: 0;
+			-ms-flex: 0 1 auto;
+			flex: 0 1 auto;
+			-webkit-box-orient: horizontal;
+			-webkit-box-direction: normal;
+			-ms-flex-direction: row;
+			flex-direction: row;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin-right: -.5rem;
+			margin-left: -.5rem">
+
+				<section style="box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class="boardingPass-flight ">
+					<span style="display: block; text-transform: uppercase; font-size: .8rem; color: #444;">Passenger</span>
+				</section>
+
+			</div>
+			<div style="box-sizing: border-box; display: -webkit-box; display: -ms-flexbox; display: flex;
+			-webkit-box-flex: 0;
+			-ms-flex: 0 1 auto;
+			flex: 0 1 auto;
+			-webkit-box-orient: horizontal;
+			-webkit-box-direction: normal;
+			-ms-flex-direction: row;
+			flex-direction: row;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin-right: -.5rem;
+			margin-left: -.5rem">
+
+				@{
+					foreach (var a in @Model.Pax)
+					{
+						<section style="box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class="boardingPass-passenger ">
+
+							<span>@a.Title</span>
+						</section>
+
+						<section style="box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class="boardingPass-seat ">
+
+							<span>@a.FirstName.ToUpper()</span>
+						</section>
+
+						<section style="box-sizing: border-box; -webkit-box-flex: 0; -ms-flex: 0 0 auto; flex: 0 0 auto; padding-right: .5rem; padding-left: .5rem" class="boardingPass-class">
+
+							<span>@a.LastName.ToUpper()</span>
+						</section>
+
+					}
+				}
+			</div>
+		</main>
+
+		<footer style="padding: 0 2em 2em; background: #fff; border-radius: inherit; border-top-right-radius: 0; border-top-left-radius: 0;">
+			<div style="box-sizing: border-box; display: -webkit-box; display: -ms-flexbox; display: flex;
+			-webkit-box-flex: 0;
+			-ms-flex: 0 1 auto;
+			flex: 0 1 auto;
+			-webkit-box-orient: horizontal;
+			-webkit-box-direction: normal;
+			-ms-flex-direction: row;
+			flex-direction: row;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin-right: -.5rem;
+			margin-left: -.5rem">
+				<div style="height: 40px; width: 100%;"></div>
+			</div>
+		</footer>
+	</div>
+</body>
+
+
+</html>

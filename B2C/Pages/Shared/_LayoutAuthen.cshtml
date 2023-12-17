@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>Home - Andtourtravel </title>
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="~/assets/css/animate.min.css">
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" href="~/assets/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/nouislider.css">
+    <!-- owl.theme.default css -->
+    <link rel="stylesheet" href="~/assets/css/owl.theme.default.min.css">
+    <!-- navber css -->
+    <link rel="stylesheet" href="~/assets/css/navber.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="~/assets/css/meanmenu.css">
+    <!-- Style css -->
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="~/assets/img/favicon.png">
+</head>
+<body>
+    <!-- preloader Area -->
+    <div class="preloader" style="display: none;">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Area -->
+    <header class="main_header_arae">
+        <!-- Top Bar -->
+        <div class="topbar-area">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <ul class="topbar-list">
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <ul class="topbar-others-options">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-item">Home</a>
+                            </li>
+                            
+
+                            @{
+                                if (User.Identity?.Name != null)
+                                {
+                                    <li class="nav-item">
+                                        <a href="/Authen/Profile" class="nav-item">My profile</a>
+                                    </li>
+                                    <li><a href="/Authen/Logout">Logout </a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Authen/Login">Login</a></li>
+                                    <li><a href="/Authen/Register">Sign up</a></li>
+                                }
+                            }
+                            <li>
+                                <div class="dropdown language-option">
+                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="lang-name">English</span>
+                                    </button>
+                                    <div class="dropdown-menu language-dropdown-menu">
+                                        <a class="dropdown-item" href="#">English</a>
+                                        <a class="dropdown-item" href="#">Vietnamese</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <!-- search -->
+    <div class="search-overlay">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-close">
+                    <span class="search-overlay-close-line"></span>
+                    <span class="search-overlay-close-line"></span>
+                </div>
+                <div class="search-overlay-form">
+                    <form>
+                        <input type="text" class="input-search" placeholder="Search here...">
+                        <button type="button"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner Area -->
+    <section id="home_one_banner">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="banner_one_text" style="height: 200px">
+                        <h1></h1>
+                        <h3></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   @RenderBody()
+
+    <!-- Footer  -->
+    <div class="copyright_area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="co-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="copyright_left">
+                        <p>Copyright © 2023</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="go-top">
+        <i class="fas fa-chevron-up"></i>
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <script src="~/assets/js/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="~/assets/js/bootstrap.bundle.js"></script>
+    <!-- Meanu js -->
+    <script src="~/assets/js/jquery.meanmenu.js"></script>
+    <script src="~/assets/js/nouislider.min.js"></script>
+    <script src="~/assets/js/wNumb.js"></script>
+    <!-- owl carousel js -->
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <!-- wow.js -->
+    <script src="~/assets/js/wow.min.js"></script>
+    <!-- Custom js -->
+    <script src="~/assets/js/custom.js"></script>
+    <script src="~/assets/js/add-form.js"></script>
+    <script src="~/assets/js/form-dropdown.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
